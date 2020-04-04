@@ -5,11 +5,16 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  
   {
     path: '/',
     name: 'HR',
     component: () => import( '../views/hr.vue')
+    // component: () => import( '../views/About.vue')
+  },
+  {
+    path: '/form',
+    name: 'form',
+    component: () => import( '../views/applicationform.vue')
     // component: () => import( '../views/About.vue')
   }
 ]
