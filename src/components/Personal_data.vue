@@ -2,7 +2,7 @@
   <v-card>
     <v-container fluid>
       <v-form ref="form" v-model="valid">
-        <v-row>
+        <v-row> 
           <v-col cols="10">
             <v-row align="center">
               <v-col cols="2" md="1.5">
@@ -57,8 +57,8 @@
           <v-col cols="2">
             <picture-input
               ref="pictureInput"
-              width="300"
-              height="300"
+              width="120"
+              height="148"
               margin="16"
               accept="image/jpeg, image/png"
               size="10"
