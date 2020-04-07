@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/form',
     name: 'form',
-    component: () => import( '../views/applicationform.vue')
+    component: () => import( '@/views/applicationform.vue')
     // component: () => import( '../views/About.vue')
   }
 ]

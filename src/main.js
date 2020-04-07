@@ -4,6 +4,8 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router'
 import msal from 'vue-msal' // MS Authentication 
+import VueHtml2Canvas from 'vue-html2canvas';
+Vue.use(VueHtml2Canvas);
 
 
 Vue.config.productionTip = false
