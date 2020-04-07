@@ -46,7 +46,7 @@
               </v-row>
             </td>
             <td class="Type1" align="center" style="width:3.5cm;">
-             
+             <img alt="" :src="data.img" height="148" width="120" />
             </td>
           </tr>
         </table>

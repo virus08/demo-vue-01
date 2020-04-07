@@ -2,53 +2,73 @@
   <v-card>
     <v-container fluid>
       <v-form ref="form" v-model="valid">
-        <v-row align="center">
-          <v-col cols="2" md="1.5">
-            <v-select
-              v-model="datain.nt"
-              :rules="rules.nt"
-              :items="['นาย','นาง','นางสาว']"
-              label="คำนำหน้า(TH)"
-              dense
-              solo
-            ></v-select>
-          </v-col>
-          <v-col cols="5" md="3">
-            <v-text-field
-              v-model="datain.namet"
-              :rules="rules.xnamet"
-              label="ชื่อ / (TH)"
-              hint="ระบุเป็นภาษาไทย"
-              dense
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col cols="5" md="3">
-            <v-text-field
-              v-model="datain.surnamet"
-              label="นามสกุล / (TH)"
-              hint="ระบุเป็นภาษาไทย"
-              :rules="rules.xnamet"
-              dense
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col cols="2" md="2">
-            <v-text-field label="ชื่อเล่น / (TH)" hint="ระบุเป็นภาษาไทย" dense outlined></v-text-field>
-          </v-col>
-        </v-row>
         <v-row>
-          <v-col cols="2" md="1.5">
-            <v-select :items="['Mr.','Mrs.','Miss']" label="คำนำหน้า(EN)" dense solo></v-select>
+          <v-col cols="10">
+            <v-row align="center">
+              <v-col cols="2" md="1.5">
+                <v-select
+                  v-model="datain.nt"
+                  :rules="rules.nt"
+                  :items="['นาย','นาง','นางสาว']"
+                  label="คำนำหน้า(TH)"
+                  dense
+                  solo
+                ></v-select>
+              </v-col>
+              <v-col cols="5" md="3">
+                <v-text-field
+                  v-model="datain.namet"
+                  :rules="rules.xnamet"
+                  label="ชื่อ / (TH)"
+                  hint="ระบุเป็นภาษาไทย"
+                  dense
+                  outlined
+                ></v-text-field>
+              </v-col>
+              <v-col cols="5" md="3">
+                <v-text-field
+                  v-model="datain.surnamet"
+                  label="นามสกุล / (TH)"
+                  hint="ระบุเป็นภาษาไทย"
+                  :rules="rules.xnamet"
+                  dense
+                  outlined
+                ></v-text-field>
+              </v-col>
+              <v-col cols="2" md="2">
+                <v-text-field label="ชื่อเล่น / (TH)" hint="ระบุเป็นภาษาไทย" dense outlined></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2" md="1.5">
+                <v-select :items="['Mr.','Mrs.','Miss']" label="คำนำหน้า(EN)" dense solo></v-select>
+              </v-col>
+              <v-col cols="5" md="3">
+                <v-text-field label="Name / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
+              </v-col>
+              <v-col cols="5" md="3">
+                <v-text-field label="Surname / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
+              </v-col>
+              <v-col cols="2" md="2">
+                <v-text-field label="Nickname / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col cols="5" md="3">
-            <v-text-field label="Name / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
-          </v-col>
-          <v-col cols="5" md="3">
-            <v-text-field label="Surname / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
-          </v-col>
-          <v-col cols="2" md="2">
-            <v-text-field label="Nickname / (EN)" hint="ระบุเป็นภาษาอังกฤษ" dense outlined></v-text-field>
+          <v-col cols="2">
+            <picture-input
+              ref="pictureInput"
+              width="300"
+              height="300"
+              margin="16"
+              accept="image/jpeg, image/png"
+              size="10"
+              button-class="btn"
+              :custom-strings="{
+                upload: '<h1>Bummer!</h1>',
+                drag: 'Drag a jpeg or png'
+              }"
+              @change="onChange"
+            ></picture-input>
           </v-col>
         </v-row>
         <v-row>
@@ -560,8 +580,14 @@
   </v-card>
 </template>
 <script>
+import PictureInput from "vue-picture-input";
+
 export default {
   props: ["thisid"],
+  components: {
+    PictureInput
+  },
+
   data() {
     return {
       data: null,
@@ -575,6 +601,7 @@ export default {
         ]
       },
       datain: {
+        img:null,
         nt: "",
         namet: "",
         surnamet: ""
@@ -583,6 +610,15 @@ export default {
   },
   methods: {
     async init() {},
+    onChange(image) {
+      console.log("New picture selected!");
+      if (image) {
+        console.log("Picture loaded.");
+        this.datain.img = image;
+      } else {
+        console.log("FileReader API not supported: use the <form>, Luke!");
+      }
+    },
     async save() {
       let urldata = process.env.VUE_APP_DATA;
       // console.log(urldata + "/" + this.thisid);
